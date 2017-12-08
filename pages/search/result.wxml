@@ -1,0 +1,86 @@
+<!-- result.wxml -->
+<view class="search-container">
+  <view class="search-view">
+    <icon type="search" size="12"></icon>
+    <input  class="search-input" placeholder="{{keyword}}"></input>
+  </view>
+  <view class="clear"></view>
+  <view class="filter-list">
+    <text bindtap="withTotaly" class="{{withTotaly ? 'selected' : false}}">综合</text>
+    <text bindtap="withSales" class="{{withSales ? 'selected' : false}}">销量</text>
+    <text bindtap="withPrice" class="{{withPrice ? 'selected' : false}}">价格</text>
+    <text bindtap="filter" class="{{withFilter ? 'selected' : false}}">筛选</text>
+  </view>
+  <loading hidden="{{hidden}}" bindchange="loadingChange">加载中...</loading> 
+  <view wx:if="{{list_view == 'singel'}}">
+    <scroll-view scroll-y="true" scroll-top="{{scrollTop}}" bindscroll='scroll' style="height:{{windowHeight}}px;">
+      <view class="refresh load-top" wx:if="{{hasRefresh}}">
+        <image src="../../images/load.gif"></image>
+      </view>
+      <view wx:for="{{result}}" wx:key="id">
+        <navigator url="../product/detail?id={{item.id}}" hover-class="none">
+          <view class="product-item">
+            <view class="item-image">
+              <image src="{{item.cover_image}}"></image>
+            </view>
+            <view class="p-text" id="p-text-{{index}}">
+              <text class="p-title">{{item.title}}\n</text>
+              <text class="p-price">¥{{item.price}}\n</text>
+              <text class="p-chart">{{item.chart}} 评价</text>
+              <text class="p-good">¥{{item.good}}% 好评</text>
+            </view>
+          </view>
+        </navigator>
+      </view>
+      <view wx:if="{{hasMore == 'badNet'}}" class="bad-web-line">
+        <text>网络开小差，试试</text>
+        <text class="click-refresh gray-border" bindtap='search'>刷新</text>
+      </view>
+      <view wx:elif="{{hasMore}}" class="load load-bottom">
+        <image src="../../images/load.gif"></image>
+      </view>
+      <view wx:else class="load load-bottom">
+        <view class="line"></view>
+        <text>没有更多商品了</text>
+        <view class="line"></view>
+      </view>
+    </scroll-view>
+  </view>
+  <view wx:else>
+    <scroll-view scroll-y="true" bindscroll="scroll" scroll-top="{{scrollTop}}">
+      <view class="refresh" wx:if="{{hasRefresh}}">
+        <image src="../../images/load.gif"></image>
+      </view>
+      <view wx:for="{{result}}" wx:key="id">
+        <navigator url="../product/detail?id={{item.id}}" hover-class="none">
+          <view class="product-item-2">
+            <image src="{{item.cover_image}}"></image>
+            <text class="brand-name-2">{{item.author_nickname}}\n</text>
+            <text class="product-title-2">{{item.title}}\n</text>
+            <text class="product-price-2">¥{{item.price}}</text>
+          </view>
+        </navigator>
+      </view>
+      <view wx:if="{{hasMore == 'badNet'}}" class="bad-web-line">
+        <text>网络开小差，试试</text>
+        <text class="click-refresh gray-border" bindtap='search'>刷新</text>
+      </view>
+      <view wx:elif="{{hasMore}}" class="load load-bottom">
+        <image src="../../images/load.gif"></image>
+      </view>
+      <view wx:else class="load load-bottom">
+        <view class="line"></view>
+        <text>没有更多商品了</text>
+        <view class="line"></view>
+      </view>
+    </scroll-view>
+  </view>
+  <view class="widget-goTop" bindtap="goTop" wx:if="{{!isTop}}">
+    <view class="gotop-wrap">
+      <view class="icon icon-top"></view>
+      <view>
+        <image src="../../images/toTop.png"></image>
+      </view>
+    </view>
+  </view>
+</view>

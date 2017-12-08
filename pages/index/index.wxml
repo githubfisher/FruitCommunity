@@ -1,0 +1,66 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="front">
+    <view class="logo">
+      <image src="../../images/logo.png"></image>
+    </view>
+    <view class="search-bar">
+      <icon type="search" size="12" id="search-icon"></icon>
+      <input placeholder='每日鲜活从这里开始' bindtap='toSearch'></input>
+    </view>
+  </view>
+  <view class="middle">
+    <view>
+       <image src="../../images/coupon.png"></image>
+       <text>领优惠券</text>
+    </view>
+    <view>
+       <image src="../../images/sao.jpg"></image>
+       <text>扫码购物</text>
+    </view>
+    <view>
+       <image src="../../images/tuan.png"></image>
+       <text>底价团购</text>
+    </view>
+    <view>
+       <image src="../../images/category.jpg"></image>
+       <text>全部分类</text>
+    </view>
+  </view>
+  <view class="special">
+    <view class="empty-view-10 gray"></view>
+    <view class="special-head">
+      <text>今日秒杀</text>
+    </view>
+    <view class="special-time"></view>
+    <view wx:for="{{special}}" wx:key="unique">
+      <navigator url="../product/detail?id={{item.id}}" hover-class="none">
+        <view class="product-item">
+          <view class="item-image">
+            <image src="{{item.cover_image}}"></image>
+          </view>
+          <view class="p-text">
+            <text class="p-title">{{item.title}}\n</text>
+            <text class="p-price">¥{{item.price}}</text>
+            <text class="special-p-presale-price">{{item.presale_price}}\n</text>
+            <view>
+              <text class="special-sale">已售{{item.sale}}%</text>
+              <view class="special-sale-shape-bk">
+                <view class="special-sale-shape" style="width:{{item.sale*0.05}}em;"></view>
+              </view>
+            </view>
+            <button class="special-button">立即抢购</button>
+          </view>
+        </view>
+      </navigator>
+    </view>
+    <view wx:if="{{hasMore}}" class="load">
+        <image src="../../images/load.gif"></image>
+      </view>
+      <view wx:else class="load load-bottom">
+        <view class="line"></view>
+        <text>没有更多商品了</text>
+        <view class="line"></view>
+      </view>
+  </view>
+</view>

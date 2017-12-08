@@ -1,0 +1,26 @@
+<!-- search.wxml -->
+<view class="search-container">
+  <view class="search-view">
+    <icon type="search" size="12"></icon>
+    <input  class="search-input" bindconfirm='search' placeholder='{{keyword}}'></input>
+    <text bindtap='cancel'>取消</text>
+  </view>
+  <view class="clear"></view>
+  <view wx:if="{{history}}">
+    <view class="search-title">
+      <text>热门历史</text>
+    </view>
+    <view class="search-keywords" wx:for="{{history}}"  wx:key="keyword">
+      <text bindtap='click_btn' data-keyword="{{item.keyword}}">{{item.keyword}}</text>
+    </view>
+  </view>
+  <view class="clear"></view>
+  <view>
+    <view class="search-title">
+      <text>热门搜索</text>
+    </view>
+    <view class="search-keywords" wx:for="{{hotkey}}"  wx:key="keyword">
+      <text bindtap='click_btn' data-keyword="{{item.keyword}}">{{item.keyword}}</text>
+    </view>
+  </view>
+</view>

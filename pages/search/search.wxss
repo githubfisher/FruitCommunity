@@ -1,0 +1,17 @@
+/* pages/search/search.wxss */
+.search-title{
+  padding:10px;
+  font-size:14px;
+}
+.search-keywords{
+  float:left;
+  border-radius:2px;
+  margin-left:10px;
+  margin-bottom: 10px;
+  background-color:#eee;
+  font-size: 12px;
+  padding: 4px 8px;
+}
+.search-input{
+  width: 74%;
+}

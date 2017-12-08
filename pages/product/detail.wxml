@@ -1,0 +1,5 @@
+<!-- pages/product/detail.wxml -->
+<view hidden="{{development ? false : true}}" class="bad-web-line">
+    <text>页面开发中..., 随便去</text>
+    <text class="click-refresh" bindtap='toHome'>看看</text>
+  </view>

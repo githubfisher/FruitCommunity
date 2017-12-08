@@ -1,0 +1,94 @@
+<!-- cart.wxml -->
+<view class="container">
+  <loading hidden="{{hidden}}" bindchange="loadingChange">加载中...</loading>
+  <view hidden="{{list.length ? true : false}}" class="bad-web-line">
+    <text>购物车空空如也，去</text>
+    <text class="click-refresh gray-border" bindtap='toHome'>购物</text>
+  </view>
+  <scroll-view scroll-y="true" scroll-top="{{scrollTop}}" style="height:{{windowHeight}}px;">
+    <view class="refresh load-top" wx:if="{{hasRefresh}}">
+        <image src="../../images/load.gif"></image>
+      </view>
+      <view wx:for="{{list}}" wx:key="unique" wx:for-index="i">
+        <view class="empty-view-15 gray"></view>
+        <view class="store">
+          <view class="store-info">
+            <view class="s-radio">
+              <icon type="success" wx:if="{{item.checked}}" color="red" size="18" bindtap='storeRadioClick' data-storeIndex="{{i}}"></icon>
+              <icon type="circle" wx:else size="18" color="black" bindtap='storeRadioClick' data-storeIndex="{{i}}"></icon>
+            </view>
+            <text>{{item.store_name}}</text>
+          </view>
+          <view wx:for="{{item.list}}" wx:key="unique" wx:for-index="key" wx:for-item="p">
+            <view class="cart-product">
+              <view class="white-view"></view>
+              <view class="p-item">
+                <view class="p-promotion">
+                  <text class="promotion-info">{{p.promotion}}</text>
+                  <image src='../../images/right-arrow2.png'></image>
+                  <text class="go-store">去凑单</text>
+                </view>
+                <view class="{{p.inventory ? 'white' : 'gray'}} empty-view-5"></view>
+                <view class="p-info {{p.inventory ? 'white' : 'gray'}}">
+                <view class="touch-item {{p.isTouchMove ? 'touch-move-active' : ''}}" bindtouchstart="touchStart" bindtouchmove="touchMove" data-pi="{{key}}" data-si="{{i}}">
+                  <view class="p-content" data-pi="{{key}}" data-si="{{i}}">
+                      <view class="p-radio">
+                        <icon type="success" wx:if="{{p.checked}}" color="red" size="18" bindtap='productRadioClick' data-proIndex="{{key}}" data-storeIndex="{{i}}"></icon>
+                        <icon type="circle" wx:else size="18" color="black" bindtap='productRadioClick' data-proIndex="{{key}}" data-storeIndex="{{i}}"></icon>
+                      </view>
+                      <view class="p-image">
+                        <image src="{{p.cover_image}}" data-pi="{{key}}" data-si="{{i}}"></image>
+                      </view>
+                      <view class="p-detail">
+                        <text class="p-title" data-pi="{{key}}" data-si="{{i}}">{{p.title}}</text>
+                        <text class="detail-prefix" data-pi="{{key}}" data-si="{{i}}">重量：</text>
+                        <text class="p-spec" data-pi="{{key}}" data-si="{{i}}">{{p.weight}}Kg</text>
+                        <text class="detail-prefix" data-pi="{{key}}" data-si="{{i}}"> 规格：</text>
+                        <text class="p-spec" data-pi="{{key}}" data-si="{{i}}">{{p.tiji}}\n</text>
+                        <text class="p-price" data-pi="{{key}}" data-si="{{i}}">¥{{p.price}}</text>
+                        <view class="p-count">
+                          <text  class="count-high" bindtap='countAdd' data-proIndex="{{key}}" data-storeIndex="{{i}}">+</text>
+                          <input class="count-info" bindconfirm='countInput' data-proIndex="{{key}}" data-storeIndex="{{i}}" type="number" confirm-type='send' value="{{p.count}}"></input>
+                          <text class="count-low {{p.countTakeStatus}}" bindtap='countTake' data-proIndex="{{key}}" data-storeIndex="{{i}}">-</text>
+                        </view>
+                      </view>
+                  </view>
+                  <view class="p-del" data-pi="{{key}}" data-si="{{i}}" bindtap="del">
+                    <text data-pi="{{key}}" data-si="{{i}}">删除</text>
+                  </view> 
+                </view>
+                    <view class="clear"></view>
+                    <view class="p-sales">
+                      <text class="detail-prefix">促销：</text><text>{{p.cuxiao}}</text>
+                    </view>
+                    <view class="{{p.inventory ? 'white' : 'gray'}} empty-view-5"></view>
+                  </view>
+                </view>
+              </view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+  <view class="sum">
+    <view class="sum-radio">
+      <view>
+        <icon type="success" wx:if="{{sumChecked}}" color="red" size="18" bindtap='sumRadioClick'></icon>
+        <icon type="circle" wx:else size="18" color="black" bindtap='sumRadioClick' ></icon>
+      </view>
+      <view class="sum-all">
+        <text>全选</text>
+      </view>
+    </view>
+    <view class="go-count {{count ? 'btn-normal' : 'btn-disabled' }}">
+      <text class="go-count-title">去结算</text>
+      <text class="go-count-sum">（{{count}}件）</text>
+    </view>
+    <view class="sum-info">
+      <text class="sum-title">总计：</text>
+      <text class="p-price">¥{{sum}}\n</text>
+      <view class="sum-detail">
+        <text>{{sumInfo}}{{salesPrice}}</text>
+      </view>
+    </view>
+  </view>
+</view>
